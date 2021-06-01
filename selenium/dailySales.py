@@ -8,10 +8,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 today = date.today()
-yesterday = date.today() - timedelta(1)
-yesterdayDate = yesterday.strftime('%Y-%m-%d')
+ftoday = date.today() - timedelta(1)
+yesterdayDate = ftoday.strftime('%Y-%m-%d')
 #해당 달의 첫째날 구하기
-first_day = today.replace(day=1)
+first_day = ftoday.replace(day=1)
 first_dayDate = first_day.strftime('%Y-%m-%d')
 #전달의 마지막 날 구하기
 last_day_month_ago = first_day - timedelta(days=1)
@@ -49,8 +49,7 @@ driver.switch_to.frame(iframes[1])
 # 기간 입력
 elem = driver.find_element_by_id("s_startCnfmDate")
 elem.clear()
-# elem.send_keys(first_dayDate)
-elem.send_keys("2021-05-01")
+elem.send_keys(first_dayDate)
 elem = driver.find_element_by_id("s_endCnfmDate")
 elem.clear()
 elem.send_keys(yesterdayDate)
@@ -76,6 +75,10 @@ time.sleep(2)
 
 iframes = driver.find_elements_by_tag_name('iframe')
 driver.switch_to.frame(iframes[2])
+
+elem = driver.find_element_by_id("startDate")
+elem.clear()
+elem.send_keys("202105")
 
 # 통합수불 분유 보임
 driver.find_element_by_xpath('//*[@id="subContentBox"]/div[1]/div[1]/div[1]/table/tbody/tr[3]/td[3]/label[1]/input').click()
@@ -111,7 +114,7 @@ elem.send_keys(yesterdayDate)
 
 elem = driver.find_element_by_id("btnSearch")
 elem.click()
-time.sleep(9)
+time.sleep(11)
 elem = driver.find_element_by_id("btnExcel")
 elem.click()
 time.sleep(1)
