@@ -175,5 +175,3 @@ elem.click()
 time.sleep(11)
 da = Alert(driver)
 da.accept()
-
-driver.quit()
